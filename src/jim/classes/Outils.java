@@ -258,6 +258,34 @@ public class Outils {
 		return laChaine;
 	}	
 	
-	
+    /**
+     * méthode de classe pour reformater un numéro de téléphone en 5 groupes de 2 chiffres séparés par des points.
+     * @param laChaine le numéro à transformer
+     * @return         le numéro transformé
+     */
+	public static String corrigerTelephone(String laChaine)
+	{	String temp;
+		String resultat;
+		temp = laChaine;
+		temp = temp.replace(" ", "");		// supprime les espaces
+		temp = temp.replace(".", "");		// supprime les points
+		temp = temp.replace(",", "");		// supprime les virgules
+		temp = temp.replace("-", "");		// supprime les tirets
+		temp = temp.replace("_", "");		// supprime les underscore
+		temp = temp.replace("/", "");		// supprime les slash
+		if (temp.length() == 10 && Outils.isNumeric(temp))
+		{
+			resultat = temp.substring(0, 2) + ".";
+			resultat += temp.substring(2, 4) + ".";
+			resultat += temp.substring(4, 6) + ".";
+			resultat += temp.substring(6, 8) + ".";
+			resultat += temp.substring(8, 10);
+			return resultat;
+		}
+		else
+		{
+			return laChaine;
+		}
+	}	
 	
 }
