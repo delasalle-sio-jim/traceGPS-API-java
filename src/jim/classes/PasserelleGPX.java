@@ -7,20 +7,15 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-/**
- * Cette classe fournit les outils permettant de "parser" un fichier GPX pour mettre à jour un objet Trace.<br>
- * Dernière mise à jour : 21/1/2018<br>
- * @author JM<br>
- *
- */
+// Cette classe fournit les outils permettant de "parser" un fichier GPX pour mettre à jour un objet Trace.<br>
+// Dernière mise à jour : 22/1/2018 par Jim
+
 public class PasserelleGPX extends Passerelle {
 	
-	/**
-	 * méthode pour mettre à jour un objet Trace (vide) à partir n'un fichier GPX
-	 * @param nomFichier : le nom du fichier contenant la trace
-	 * @param laTraceAcreer : l'objet Trace à mettre à jour
-	 * @return : un message d'erreur de traitement (ou un message vide si pas d'erreur)
-	 */
+	// méthode pour mettre à jour un objet Trace (vide) à partir n'un fichier GPX
+	// nomFichier    : le nom du fichier contenant la trace
+	// laTraceAcreer : l'objet Trace à mettre à jour
+	// retourne      : un message d'erreur de traitement (ou un message vide si pas d'erreur)
 	@Override
 	public String creerTrace (String nomFichier, Trace laTraceAcreer) {
 		try {

@@ -11,7 +11,7 @@ public class Utilisateur {
 	
 	private int _id;					// identifiant de l'utilisateur (numéro automatique dans la BDD)
 	private String _pseudo;				// pseudo de l'utilisateur
-	private String _mdpSha1;			//mot de passe de l'utilisateur (hashé en SHA1)
+	private String _mdpSha1;			// mot de passe de l'utilisateur (hashé en SHA1)
 	private String _adrMail;			// adresse mail de l'utilisateur
 	private String _numTel;				// numéro de téléphone de l'utilisateur
 	private int _niveau;				// niveau d'accès : 1 = utilisateur (pratiquant ou proche)    2 = administrateur

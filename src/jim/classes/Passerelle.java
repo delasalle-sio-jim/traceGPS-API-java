@@ -13,19 +13,13 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.w3c.dom.Document;
 
-/**
- * Cette classe abstraite détermine les outils permettant de "parser" un fichier GPX pour mettre à jour un objet Trace.
- * @author JM
- *
- */
+// Cette classe abstraite détermine les outils permettant de "parser" un fichier GPS pour mettre à jour un objet Trace.
+// Dernière mise à jour : 22/1/2018 par Jim
+
 public abstract class Passerelle {
 
-    /**
-     * méthode protégée statique pour obtenir un flux en lecture
-     * à partir de l'adresse d'un fichier ou de l'URL d'un service web
-     * @param adrFichierOuServiceWeb : le nom du fichier contenant la trace (String)
-     * @return : un flux de données en lecture (java.io.InputStream)
-     */
+    // méthode protégée statique pour obtenir un flux en lecture (java.io.InputStream)
+    // à partir de l'adresse d'un fichier ou de l'URL d'un service web
     protected static InputStream getFluxEnLecture(String adrFichierOuServiceWeb)
     {
 		InputStream unFluxEnLecture;
@@ -53,12 +47,8 @@ public abstract class Passerelle {
 		}	
     }
 
-    /**
-     * méthode protégée statique pour obtenir document XML
-     * à partir d'un flux de données en lecture
-     * @param unFluxEnLecture : un flux de données en lecture (java.io.InputStream)
-     * @return : un document XML (org.w3c.dom.Document)
-     */
+    // méthode protégée statique pour obtenir document XML (org.w3c.dom.Document)
+    // à partir d'un flux de données en lecture (java.io.InputStream)
 	protected static Document getDocumentXML(InputStream unFluxEnLecture)
 	{
 		try
@@ -76,11 +66,7 @@ public abstract class Passerelle {
 		}	
 	}
 	
-	/**
-	 * méthode abstraite pour mettre à jour un objet Trace (vide) à partir n'un fichier GPX
-	 * @param nomFichier : le nom du fichier contenant la trace
-	 * @param laTraceAcreer : l'objet Trace à mettre à jour
-	 * @return : un message d'erreur de traitement (ou un message vide si pas d'erreur)
-	 */
+	// méthode abstraite pour mettre à jour un objet Trace (vide) à partir n'un fichier GPS
+	// paramètre nomFichier : le nom du fichier contenant la trace
 	public abstract String creerTrace(String nomFichier, Trace laTraceAcreer);
 }

@@ -3,44 +3,23 @@ package jim.classes;
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- * Cette classe représente une trace au moyen d'une collection d'objets PointDeTrace<br>
- * Dernière mise à jour : 21/1/2018<br>
- * @author JM<br>
- *
- */
+// Cette classe représente une trace au moyen d'une collection d'objets PointDeTrace<br>
+// Dernière mise à jour : 22/1/2018 par Jim
+
 public class Trace {
 
 	// attributs privés ---------------------------------------------------------------------------
-	/**
-	 * l'identifiant de la trace
-	 */
-	private int _id;
-	/**
-	 * date et heure de début (utilise un objet java.util.Date)
-	 */
-	private Date _dateHeureDebut;	
-	/**
-	 * date et heure de fin (utilise un objet java.util.Date)
-	 */
-	private Date _dateHeureFin;	
-	/**
-	 * true si la trace est terminée, false sinon
-	 */
-	private boolean _terminee;	
-	/**
-	 * l'identifiant de l'utilisateur ayant créé la trace
-	 */
-	private int _idUtilisateur;	
-	/**
-	 * la collection d'objets PointDeTrace
-	 */
-	private ArrayList<PointDeTrace> _lesPointsDeTrace;
+
+	private int _id;				// l'identifiant de la trace
+	private Date _dateHeureDebut;	// date et heure de début (utilise un objet java.util.Date)
+	private Date _dateHeureFin;		// date et heure de fin (utilise un objet java.util.Date)
+	private boolean _terminee;		// true si la trace est terminée, false sinon
+	private int _idUtilisateur;		// l'identifiant de l'utilisateur ayant créé la trace
+	private ArrayList<PointDeTrace> _lesPointsDeTrace;	// la collection d'objets PointDeTrace
 	
 	// Constructeurs ------------------------------------------------------------------------------
-	/**
-	 * Constructeur sans paramètre
-	 */
+
+	// Constructeur sans paramètre
 	public Trace() {
 		_id = 0;
 		_dateHeureDebut = null;
@@ -50,9 +29,7 @@ public class Trace {
 		_lesPointsDeTrace = new ArrayList<PointDeTrace>();
 	}
 
-	/**
-	 * Constructeur avec paramètre
-	 */
+	// Constructeur avec paramètres
 	public Trace(int unId, Date uneDateHeureDebut, Date uneDateHeureFin, boolean terminee, int unIdUtilisateur) {
 		_id = unId;
 		_dateHeureDebut = uneDateHeureDebut;
@@ -63,102 +40,32 @@ public class Trace {
 	}
 	
 	// Accesseurs ---------------------------------------------------------------------------------
-    /**
-     * Accesseur fournissant l'identifiant de la trace
-     * @return l'identifiant de la trace
-     */
-    public int getId() {
-        return _id;
-    }
-    /**
-     * Mutateur pour modifier l'identifiant de la trace
-     * @param unId : le nouveal identifiant de la trace
-     */
-    public void setId(int unId) {
-        this._id = unId;
-    }
 
-    /**
-	 * Accesseur fournissant l'heure de début
-	 * @return l'heure de début
-	 */
-	public Date getDateHeureDebut() {
-		return _dateHeureDebut;
-	}
-	/**
-	 * Mutateur pour modifier l'heure de début
-	 * @param uneDateHeureDebut : la nouvelle heure de début
-	 */
-	public void setDateHeureDebut(Date uneDateHeureDebut) {
-		this._dateHeureDebut = uneDateHeureDebut;
-	}    
+    public int getId() {return _id;}
+    public void setId(int unId) {this._id = unId;}
 
-    /**
-	 * Accesseur fournissant l'heure de fin
-	 * @return l'heure de début
-	 */
-	public Date getDateHeureFin() {
-		return _dateHeureFin;
-	}
-	/**
-	 * Mutateur pour modifier l'heure de fin
-	 * @param uneDateHeureFin : la nouvelle heure de fin
-	 */
-	public void setDateHeureFin(Date uneDateHeureFin) {
-		this._dateHeureFin = uneDateHeureFin;
-	} 
+	public Date getDateHeureDebut() {return _dateHeureDebut;}
+	public void setDateHeureDebut(Date uneDateHeureDebut) {this._dateHeureDebut = uneDateHeureDebut;}    
 
-    /**
-     * Accesseur indiquant si la trace est terminée
-     * @return true si la trace est terminée, false sinon
-     */
-    public boolean getTerminee() {
-        return _terminee;
-    }
-    /**
-     * Mutateur pour indiquer si la trace est terminée
-     * @param terminee : le nouvel état
-     */
-    public void setTerminee(boolean terminee) {
-        this._terminee = terminee;
-    }
+	public Date getDateHeureFin() {return _dateHeureFin;}
+	public void setDateHeureFin(Date uneDateHeureFin) {this._dateHeureFin = uneDateHeureFin;} 
 
-    /**
-     * Accesseur fournissant l'identifiant de l'utilisateur ayant créé la trace
-     * @return l'identifiant de l'utilisateur ayant créé la trace
-     */
-    public int getIdUtilisateur() {
-        return _idUtilisateur;
-    }
-    /**
-     * Mutateur pour modifier l'identifiant de l'utilisateur ayant créé la trace
-     * @param unIdTrace : le nouveal identifiant de l'utilisateur ayant créé la trace
-     */
-    public void setIdUtilisateur(int unIdUtilisateur) {
-        this._idUtilisateur = unIdUtilisateur;
-    }	
+    public boolean getTerminee() {return _terminee;}
+    public void setTerminee(boolean terminee) {this._terminee = terminee;}
+
+    public int getIdUtilisateur() {return _idUtilisateur;}
+    public void setIdUtilisateur(int unIdUtilisateur) {this._idUtilisateur = unIdUtilisateur;}	
 	
-	/**
-	 * Fournit la collection de points
-	 * @return : la collection de points
-	 */
-	public ArrayList<PointDeTrace> getLesPointsDeTrace() {
-		return _lesPointsDeTrace;
-	}
+	public ArrayList<PointDeTrace> getLesPointsDeTrace() {return _lesPointsDeTrace;}
 
 	// Méthodes publiques -------------------------------------------------------------------------
-	/**
-	 * Fournit le nombre de points de passage
-	 * @return : le nombre de points de passage
-	 */
+
+	// Fournit le nombre de points de passage
 	public int getNombrePoints() {
 		return _lesPointsDeTrace.size();
 	}
 
-	/**
-	 * Fournit le point central du parcours
-	 * @return : un objet Point (ou null si collection vide)
-	 */
+	// Fournit le point central du parcours
 	public Point getCentre() {
 		if (_lesPointsDeTrace.size() == 0)
 			return null;
@@ -184,10 +91,7 @@ public class Trace {
 		}
 	}
 
-	/**
-	 * Fournit le dénivelé (en m) entre le point le plus bas et le point le plus haut du parcours
-	 * @return : le dénivelé en mètres (ou 0 si la collection est vide)
-	 */
+	// Fournit le dénivelé (en m) entre le point le plus bas et le point le plus haut du parcours
 	public double getDenivele() {
 		if (_lesPointsDeTrace.size() == 0)
 			return 0;
@@ -207,10 +111,7 @@ public class Trace {
 		}
 	}
 	
-	/**
-	 * Fournit la durée totale du parcours (en secondes)
-	 * @return : la durée en secondes (ou 0 si la collection est vide)
-	 */
+	// Fournit la durée totale du parcours (en secondes)
 	public long getDureeEnSecondes() {
 		if (_lesPointsDeTrace.size() == 0)
 			return 0;
@@ -221,10 +122,7 @@ public class Trace {
 		}
 	}
 	
-	/**
-	 * Fournit la durée totale du parcours sous forme d'une chaine "hh:mm:ss"
-	 * @return : la durée (ou "00:00:00" si la collection est vide)
-	 */
+	// Fournit la durée totale du parcours sous forme d'une chaine "hh:mm:ss"
 	public String getDureeTotale() {
 		long duree = getDureeEnSecondes();
 		if (duree == 0) {
@@ -239,10 +137,7 @@ public class Trace {
 		}
 	}
 	
-	/**
-	 * Fournit la distance totale du parcours (en Km)
-	 * @return : la distance totale du parcours (en Km)
-	 */
+	// Fournit la distance totale du parcours (en Km)
 	public double getDistanceTotale() {
 		if (_lesPointsDeTrace.size() == 0)
 			return 0;
@@ -253,10 +148,7 @@ public class Trace {
 		}
 	}
 	
-    /**
-     * Fournit le dénivelé positif (en m)
-     * @return : le dénivelé positif (en m)
-     */
+	// Fournit le dénivelé positif (en m)
     public double getDenivelePositif()
     {
         double denivele = 0;
@@ -272,10 +164,7 @@ public class Trace {
         return denivele;
     }
 
-    /**
-     * Fournit le dénivelé négatif (en m)
-     * @return : le dénivelé négatif (en m)
-     */
+    // Fournit le dénivelé négatif (en m)
     public double getDeniveleNegatif()
     {
         double denivele = 0;
@@ -291,10 +180,7 @@ public class Trace {
         return denivele;
     }	
 	
-	/**
-	 * Fournit la vitesse moyenne du parcours (en km/h)
-	 * @return : la vitesse moyenne (ou 0 si la distance est nulle)
-	 */
+    // Fournit la vitesse moyenne du parcours (en km/h)
 	public double getVitesseMoyenne() {
 		if (getDistanceTotale() == 0)
 			return 0;
@@ -304,9 +190,7 @@ public class Trace {
 		}
 	}
 	
-	/**
-	 * Fournit une chaine contenant toutes les données de l'objet
-	 */
+	// Fournit une chaine contenant toutes les données de l'objet
 	public String toString() {
 		String msg = "";
         msg += "Id : \t\t\t\t" + getId() + "\n";
@@ -331,10 +215,7 @@ public class Trace {
 		return msg;
 	}
 	
-	/**
-	 * ajoute un objet PointDeTrace à la collection
-	 * @param unPoint : le point à ajouter
-	 */
+	// ajoute un objet PointDeTrace à la collection
 	public void ajouterPoint(PointDeTrace unPoint) {
         if (_lesPointsDeTrace.size() == 0)
         {   // si premier point de la trace, mise à zéro des données cumulées et de la vitesse
@@ -366,17 +247,12 @@ public class Trace {
 		_lesPointsDeTrace.add(unPoint);
 	}
 	
-	/**
-	 * vide la collection
-	 */
+	// vide la collection
 	public void viderListePoints() {
 		_lesPointsDeTrace.clear();
 	}
 
-    /**
-     * lisse les données (altitude surtout)
-     * fournit un nouvel objet Trace avec les données lissées
-     */
+	// lisse les données (altitude surtout)
     public Trace lisserDonnees()
     {
         Trace laTraceLissee = new Trace();
