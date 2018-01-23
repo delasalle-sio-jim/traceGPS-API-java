@@ -1,20 +1,20 @@
 package jim.classes;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.w3c.dom.Document;
 
-// Cette classe abstraite détermine les outils permettant de "parser" un fichier GPS pour mettre à jour un objet Trace.
-// Dernière mise à jour : 22/1/2018 par Jim
+// Cette classe abstraite fournit les outils permettant d'obtenir un document XML à partir d'un fichier ou d'un service web
+// Dernière mise à jour : 23/1/2018 par Jim
 
 public abstract class Passerelle {
 
@@ -26,15 +26,14 @@ public abstract class Passerelle {
 		try
 		{
 			if (adrFichierOuServiceWeb.startsWith("http"))
-			{	// création d'un DefaultHttpClient et d'un HttpGet pour effectuer une requête HTTP de type GET
-				HttpClient unClientHttp = new DefaultHttpClient();
-				HttpGet uneRequeteHttp = new HttpGet(adrFichierOuServiceWeb);
-	
-				// exécution du client HTTP avec le HttpGet
-				HttpResponse uneReponseHttp = unClientHttp.execute(uneRequeteHttp);
-				
+			{
+				// connexion HTTP au service web
+				URL url = new URL(adrFichierOuServiceWeb);
+				HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
 				// récupération de la réponse dans un flux en lecture (InputStream)
-				unFluxEnLecture = uneReponseHttp.getEntity().getContent();
+				unFluxEnLecture = new BufferedInputStream(urlConnection.getInputStream());
+
 			}
 			else
 			{	// création d'un flux en lecture (InputStream) depuis le fichier
@@ -65,8 +64,4 @@ public abstract class Passerelle {
 		{	return null;
 		}	
 	}
-	
-	// méthode abstraite pour mettre à jour un objet Trace (vide) à partir n'un fichier GPS
-	// paramètre nomFichier : le nom du fichier contenant la trace
-	public abstract String creerTrace(String nomFichier, Trace laTraceAcreer);
 }

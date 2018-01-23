@@ -130,6 +130,18 @@ public class Outils {
 	}
 
 	/**
+	 * convertit une chaine date en un objet Date
+	 * @param uneChaineDate   : la chaine à convertir
+	 * @param unFormat        : le format de la chaine fournie (ex : "yyyy-MM-dd HH:mm:ss" pour format US)
+	 * @return                : l'objet Date obtenu par la conversion de la chaine
+	 * @throws ParseException
+	 */
+	public static Date convertirEnDate(String uneChaineDate, String unFormat) throws ParseException {
+		SimpleDateFormat leFormat = new SimpleDateFormat(unFormat);
+		return leFormat.parse(uneChaineDate);
+	}
+	
+	/**
 	 * convertit une chaine dateHeure en un objet Date
 	 * @param uneChaineDate   : la chaine à convertir
 	 * @return                : l'objet Date obtenu par la conversion de la chaine (ou null si la chaine est incorrecte)

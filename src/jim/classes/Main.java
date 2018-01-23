@@ -7,12 +7,12 @@ public class Main {
         // les fichiers de données sont placés dans le dossier d'exécution
         String nomFichier;
 
-        //nomFichier = "fit-20161203T102115.gpx";
+        nomFichier = "fit-20161203T102115.gpx";
         //nomFichier = "fit-20161203T102115.pwx";
-        nomFichier = "fit-20161203T102115.tcx";
+        //nomFichier = "fit-20161203T102115.tcx";
 
         Trace laTrace = new Trace();
-        Passerelle laPasserelle = null;
+        PasserelleFichier laPasserelle = null;
 
         // création de la passerelle en fonction du type de fichier
         if (nomFichier.toLowerCase().endsWith(".gpx")) laPasserelle = new PasserelleGPX();

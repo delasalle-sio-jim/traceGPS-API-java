@@ -10,7 +10,7 @@ import org.w3c.dom.NodeList;
 // Cette classe fournit les outils permettant de "parser" un fichier TCX pour mettre à jour un objet Trace.<br>
 // Dernière mise à jour : 22/1/2018 par Jim
 
-public class PasserelleTCX extends Passerelle {
+public class PasserelleTCX extends PasserelleFichier {
 
 	// méthode pour mettre à jour un objet Trace (vide) à partir n'un fichier TCX
 	// nomFichier    : le nom du fichier contenant la trace

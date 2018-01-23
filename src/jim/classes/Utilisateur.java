@@ -88,9 +88,11 @@ public class Utilisateur {
 	    msg += "adrMail : " + _adrMail + "\n";
 	    msg += "numTel : " + _numTel + "\n";
 	    msg += "niveau : " + _niveau + "\n";
-	    msg += "dateCreation : " + _dateCreation + "\n";
+	    if (this._dateCreation != null)
+	    	msg += "dateCreation : " + Outils.formaterDateHeure(_dateCreation) + "\n";
 	    msg += "nbTraces : " + _nbTraces + "\n";
-	    msg += "dateDerniereTrace : " + _dateDerniereTrace + "\n";
+	    if (this._dateDerniereTrace != null)
+	    	msg += "dateDerniereTrace : " + Outils.formaterDateHeure(_dateDerniereTrace) + "\n";
 	    
 	    return msg;
 	}
