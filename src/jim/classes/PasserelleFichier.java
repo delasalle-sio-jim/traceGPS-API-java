@@ -1,11 +1,15 @@
-package jim.classes;
-
-// Cette classe abstraite détermine les outils permettant de "parser" un fichier GPS pour mettre à jour un objet Trace.
+// Projet TraceGPS - API Java
+// Fichier : PasserelleFichier.java
+// Cette classe abstraite hérite de la classe Passerelle
+// Elle précise la signature de la méthode pour "parser" un fichier GPS afin de mettre à jour un objet Trace fourni en paramètre.
 // Dernière mise à jour : 23/1/2018 par Jim
+
+package jim.classes;
 
 public abstract class PasserelleFichier extends Passerelle {
 	
-	// méthode abstraite pour mettre à jour un objet Trace (vide) à partir n'un fichier GPS
-	// paramètre nomFichier : le nom du fichier contenant la trace
-	public abstract String creerTrace(String nomFichier, Trace laTraceAcreer);
+	// méthode abstraite pour mettre à jour un objet Trace (vide) à partir d'un fichier GPS
+	// paramètre nomFichier  : le nom du fichier contenant la trace
+	// paramètre laTraceAmaj : l'objet Trace à mettre à jour
+	public abstract String getUneTrace(String nomFichier, Trace laTraceAmaj);
 }

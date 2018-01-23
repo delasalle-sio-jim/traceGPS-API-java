@@ -9,6 +9,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat; 
 
 /**
@@ -298,6 +300,29 @@ public class Outils {
 		{
 			return laChaine;
 		}
-	}	
+	}
+	
+	public static String sha1(String laChaineAcoder)
+	{
+		byte[] laChaineCodee = null;
+		try {
+			MessageDigest codeur = MessageDigest.getInstance("sha-1");
+			codeur.update(laChaineAcoder.getBytes());
+			laChaineCodee = codeur.digest();
+			
+		} catch (NoSuchAlgorithmException e) {
+		}
+		return bytesToHex(laChaineCodee);
+	}
+	
+	public static String bytesToHex(byte[] tableau) {
+		char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+		StringBuffer buffer = new StringBuffer();
+		for (int i = 0; i < tableau.length; i++) {
+			buffer.append(hexDigits[(tableau[i] >> 4) & 0x0f]);
+			buffer.append(hexDigits[tableau[i] & 0x0f]);
+		}
+		return buffer.toString();
+	}
 	
 }

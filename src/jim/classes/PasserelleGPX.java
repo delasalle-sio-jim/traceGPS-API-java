@@ -1,3 +1,8 @@
+// Projet TraceGPS - API Java
+// Fichier : PasserelleGPX.java
+// Cette classe fournit les outils permettant de "parser" un fichier GPX pour mettre à jour un objet Trace.<br>
+// Dernière mise à jour : 23/1/2018 par Jim
+
 package jim.classes;
 
 import java.io.InputStream;
@@ -7,17 +12,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-// Cette classe fournit les outils permettant de "parser" un fichier GPX pour mettre à jour un objet Trace.<br>
-// Dernière mise à jour : 22/1/2018 par Jim
-
 public class PasserelleGPX extends PasserelleFichier {
 	
 	// méthode pour mettre à jour un objet Trace (vide) à partir n'un fichier GPX
-	// nomFichier    : le nom du fichier contenant la trace
-	// laTraceAcreer : l'objet Trace à mettre à jour
-	// retourne      : un message d'erreur de traitement (ou un message vide si pas d'erreur)
+	// paramètre nomFichier  : le nom du fichier contenant la trace
+	// paramètre laTraceAmaj : l'objet Trace à mettre à jour
+	// retourne              : un message d'erreur de traitement (ou un message vide si pas d'erreur)
 	@Override
-	public String creerTrace (String nomFichier, Trace laTraceAcreer) {
+	public String getUneTrace (String nomFichier, Trace laTraceAmaj) {
 		try {
 			// création d'un flux en lecture (InputStream) à partir du fichier
 			InputStream unFluxEnLecture = getFluxEnLecture(nomFichier);
@@ -57,10 +59,10 @@ public class PasserelleGPX extends PasserelleFichier {
 			NodeList lesNoeuds = leDocument.getElementsByTagName("trkpt");
 
 			// vide la liste actuelle des points de trace
-			laTraceAcreer.viderListePoints();
+			laTraceAmaj.viderListePoints();
 
 			// mémoriser l'id de la trace
-			int idTrace = laTraceAcreer.getId();
+			int idTrace = laTraceAmaj.getId();
 			// initialiser l'id des points
 			int idPoint = 0;
 			
@@ -110,7 +112,7 @@ public class PasserelleGPX extends PasserelleFichier {
 					PointDeTrace unNouveauPoint = new PointDeTrace(idTrace, idPoint, latitude, longitude, altitude, dateHeure, rythmeCardio);
 	
 					// ajoute le point à l'objet laTraceAcreer
-					laTraceAcreer.ajouterPoint(unNouveauPoint);
+					laTraceAmaj.ajouterPoint(unNouveauPoint);
 				}
 			}
             // ferme le flux  en lecture

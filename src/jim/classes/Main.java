@@ -5,7 +5,7 @@ public class Main {
 	public static void main(String[] args) {
         // test des passerelles
         // les fichiers de données sont placés dans le dossier d'exécution
-        String nomFichier;
+        String nomFichier = "";
 
         nomFichier = "fit-20161203T102115.gpx";
         //nomFichier = "fit-20161203T102115.pwx";
@@ -19,7 +19,7 @@ public class Main {
         if (nomFichier.toLowerCase().endsWith(".pwx")) laPasserelle = new PasserellePWX();
         if (nomFichier.toLowerCase().endsWith(".tcx")) laPasserelle = new PasserelleTCX();
 
-        String msg = laPasserelle.creerTrace(nomFichier, laTrace);
+        String msg = laPasserelle.getUneTrace(nomFichier, laTrace);
 		
 		if ( msg.equals("") )
 			System.out.println(laTrace.toString());		// si aucune erreur
