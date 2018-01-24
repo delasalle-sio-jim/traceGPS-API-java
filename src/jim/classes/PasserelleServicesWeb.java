@@ -39,21 +39,21 @@ public class PasserelleServicesWeb extends Passerelle {
 	private static String _urlCreerUtilisateur = "CreerUtilisateur.php";
 	private static String _urlDemarrerEnregistrementParcours = "DemarrerEnregistrementParcours.php";
     private static String _urlEnvoyerPosition = "EnvoyerPosition.php";
+	private static String _urlArreterEnregistrementParcours = "ArreterEnregistrementParcours.php";
+	private static String _urlGetTousLesUtilisateurs = "GetTousLesUtilisateurs.php";
     
 	// noms des services web pas encore traités par la passerelle (à développer)
-	private static String _urlArreterEnregistrementParcours = "ArreterEnregistrementParcours.php";
 	private static String _urlGetLesParcoursDunUtilisateur = "GetLesParcoursDunUtilisateur.php";
 	private static String _urlGetLesUtilisateursQueJautorise = "GetLesUtilisateursQueJautorise.php";
-	private static String _urlGetLesUtilisateursQuiMautorisent = "GetLesUtilisateursQuiMautorisent.php";	
-	private static String _urlGetTousLesUtilisateurs = "GetTousLesUtilisateurs.php";	
+	private static String _urlGetLesUtilisateursQuiMautorisent = "GetLesUtilisateursQuiMautorisent.php";		
 	private static String _urlGetUnParcoursEtSesPoints = "GetUnParcoursEtSesPoints.php";
 	private static String _urlSupprimerUneAutorisation = "SupprimerUneAutorisation.php";
 	private static String _urlSupprimerUnParcours = "SupprimerUnParcours.php";	
 	private static String _urlSupprimerUnUtilisateur = "SupprimerUnUtilisateur.php";
-	private static String _urlValiderDemandeAutorisation = "ValiderDemandeAutorisation.php";
+
 	
     // Méthode statique pour se connecter (service Connecter.php)
-	// Le service web doit recevoir 2 paramètres :
+	// La méthode doit recevoir 2 paramètres :
 	//    pseudo : le pseudo de l'utilisateur
 	//    mdpSha1 : le mot de passe hashé en sha1
     public static String connecter(String pseudo, String mdpSha1)
@@ -86,7 +86,7 @@ public class PasserelleServicesWeb extends Passerelle {
 
     
 	// Méthode statique pour demander un nouveau mot de passe (service DemanderMdp.php)
-	// Le service web doit recevoir 1 paramètre :
+	// La méthode doit recevoir 1 paramètre :
 	//    pseudo : le pseudo de l'utilisateur
 	public static String demanderMdp(String pseudo)
 	{
@@ -117,7 +117,7 @@ public class PasserelleServicesWeb extends Passerelle {
     
 	
     // Méthode statique pour modifier son mot de passe (service ChangerDeMdp.php)
-	// Le service web doit recevoir 4 paramètres :
+	// La méthode doit recevoir 4 paramètres :
 	//    pseudo : le pseudo de l'utilisateur
 	//    mdpSha1 : le mot de passe hashé en sha1
 	//    nouveauMdp : le nouveau mot de passe
@@ -154,7 +154,7 @@ public class PasserelleServicesWeb extends Passerelle {
     
     
     // Méthode statique pour créer un utilisateur (service CreerUtilisateur.php)
-	// Le service web doit recevoir 3 paramètres :
+	// La méthode doit recevoir 3 paramètres :
 	//   pseudo : le pseudo de l'utilisateur
 	//   adrMail : son adresse mail
 	//   numTel : son numéro de téléphone
@@ -189,7 +189,7 @@ public class PasserelleServicesWeb extends Passerelle {
 
     
     // Méthode statique pour démarrer l'enregistrement d'un parcours (service DemarrerEnregistrementParcours.php)
-	// Le service web doit recevoir 2 paramètres :
+	// La méthode doit recevoir 2 paramètres :
 	//    pseudo : le pseudo de l'utilisateur
 	//    mdpSha1 : le mot de passe hashé en sha1
     public static String demarrerEnregistrementParcours(String pseudo, String mdpSha1)
@@ -222,7 +222,7 @@ public class PasserelleServicesWeb extends Passerelle {
     
   
     // Méthode statique pour envoyer la position de l'utilisateur (service EnvoyerPosition.php)
-	// Le service web doit recevoir 8 paramètres :
+	// La méthode doit recevoir 8 paramètres :
 	//    pseudo : le pseudo de l'utilisateur
 	//    mdpSha1 : le mot de passe hashé en sha1
 	//    idTrace : l'id de la trace dont le point fera partie
@@ -233,6 +233,7 @@ public class PasserelleServicesWeb extends Passerelle {
 	//    rythmeCardio : rythme cardiaque au point de passage (ou 0 si le rythme n'est pas mesurable)
     public static String envoyerPosition(String pseudo, String mdpSha1, int idTrace, Date dateHeure, double latitude, double longitude, double altitude, int rythmeCardio)
     {
+    	String etape = "";
     	String reponse = "";
     	try
     	{	// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
@@ -240,12 +241,92 @@ public class PasserelleServicesWeb extends Passerelle {
             urlDuServiceWeb += "?pseudo=" + pseudo;
             urlDuServiceWeb += "&mdpSha1=" + mdpSha1;
             urlDuServiceWeb += "&idTrace=" + idTrace;
-            urlDuServiceWeb += "&dateHeure=" + Outils.formaterDateHeureUS(dateHeure);
+            urlDuServiceWeb += "&dateHeure=" + Outils.formaterDateHeureUS(dateHeure).replace(" ", "%20");
             urlDuServiceWeb += "&latitude=" + latitude;
             urlDuServiceWeb += "&longitude=" + longitude;
             urlDuServiceWeb += "&altitude=" + altitude;
             urlDuServiceWeb += "&rythmeCardio=" + rythmeCardio;
             
+            etape = "1";
+			// création d'un flux en lecture (InputStream) à partir du fichier
+			InputStream unFluxEnLecture = getFluxEnLecture(urlDuServiceWeb);
+			
+			etape = "2";
+			// création d'un objet org.w3c.dom.Document à partir du flux ; il servira à parcourir le flux XML
+			Document leDocument = getDocumentXML(unFluxEnLecture);
+    		
+			etape = "3";
+    		// parsing du flux XML
+    		Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
+    		etape = "4";
+    		reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
+    		
+    		// retour de la réponse du service web
+    		return reponse;
+    	}
+    	catch (Exception ex)
+    	{	String msg = "Erreur : " + ex.getMessage();
+    		msg += "\nEtape : " + etape;
+			return msg;
+		}
+    }
+    
+    
+    // Méthode statique pour terminer l'enregistrement d'un parcours (service ArreterEnregistrementParcours.php)
+	// La méthode doit recevoir 3 paramètres :
+	//    pseudo : le pseudo de l'utilisateur
+	//    mdpSha1 : le mot de passe hashé en sha1
+	//    idTrace : l'id de la trace dont le point fera partie
+    public static String arreterEnregistrementParcours(String pseudo, String mdpSha1, int idTrace)
+    {
+    	String etape = "";
+    	String reponse = "";
+    	try
+    	{	// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
+    		String urlDuServiceWeb = _adresseHebergeur + _urlArreterEnregistrementParcours;
+            urlDuServiceWeb += "?pseudo=" + pseudo;
+            urlDuServiceWeb += "&mdpSha1=" + mdpSha1;
+            urlDuServiceWeb += "&idTrace=" + idTrace;
+            
+            etape = "1";
+			// création d'un flux en lecture (InputStream) à partir du fichier
+			InputStream unFluxEnLecture = getFluxEnLecture(urlDuServiceWeb);
+			
+			etape = "2";
+			// création d'un objet org.w3c.dom.Document à partir du flux ; il servira à parcourir le flux XML
+			Document leDocument = getDocumentXML(unFluxEnLecture);
+    		
+			etape = "3";
+    		// parsing du flux XML
+    		Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
+    		etape = "4";
+    		reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
+    		
+    		// retour de la réponse du service web
+    		return reponse;
+    	}
+    	catch (Exception ex)
+    	{	String msg = "Erreur : " + ex.getMessage();
+    		msg += "\nEtape : " + etape;
+			return msg;
+		}
+    }    
+    
+    
+    // Méthode statique pour obtenir la liste de tous les utilisateurs de niveau 1 (service GetTousLesUtilisateurs.php)
+	// La méthode doit recevoir 2 paramètres :
+	//    pseudo : le pseudo de l'utilisateur
+	//    mdpSha1 : le mot de passe hashé en sha1
+    //    lesUtilisateurs : collection (vide) à remplir à partir des données du service web
+    public static String getTousLesUtilisateurs(String pseudo, String mdpSha1, ArrayList<Utilisateur> lesUtilisateurs)
+    {
+    	String reponse = "";
+    	try
+    	{	// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
+    		String urlDuServiceWeb = _adresseHebergeur + _urlGetTousLesUtilisateurs;
+			urlDuServiceWeb += "?pseudo=" + pseudo;
+			urlDuServiceWeb += "&mdpSha1=" + mdpSha1;
+    		
 			// création d'un flux en lecture (InputStream) à partir du fichier
 			InputStream unFluxEnLecture = getFluxEnLecture(urlDuServiceWeb);
 			
@@ -256,6 +337,44 @@ public class PasserelleServicesWeb extends Passerelle {
     		Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
     		reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
     		
+			NodeList listeNoeudsUtilisateurs = leDocument.getElementsByTagName("utilisateur");
+			/* Exemple de données obtenues pour un utilisateur :
+				<utilisateur>
+					<id>2</id>
+					<pseudo>callisto</pseudo>
+					<adrMail>delasalle.sio.eleves@gmail.com</adrMail>
+					<numTel>22.33.44.55.66</numTel>
+					<niveau>1</niveau>
+					<dateCreation>2018-01-19 20:11:24</dateCreation>
+					<nbTraces>2</nbTraces>
+					<dateDerniereTrace>2018-01-19 13:08:48</dateDerniereTrace>
+				</utilisateur>
+			 */
+			
+			String formatUS = "yyyy-MM-dd HH:mm:ss";
+			// parcours de la liste des noeuds <utilisateur> et ajout dans la collection lesUtilisateurs
+			for (int i = 0 ; i <= listeNoeudsUtilisateurs.getLength()-1 ; i++)
+			{	// création de l'élement courant à chaque tour de boucle
+				Element courant = (Element) listeNoeudsUtilisateurs.item(i);
+				
+				// lecture des balises intérieures
+				int unId = Integer.parseInt(courant.getElementsByTagName("id").item(0).getTextContent());
+				String unPseudo = courant.getElementsByTagName("pseudo").item(0).getTextContent();
+				String unMdpSha1 = "";								// par sécurité, on ne récupère pas le mot de passe
+				String uneAdrMail = courant.getElementsByTagName("adrMail").item(0).getTextContent();
+				String unNumTel = courant.getElementsByTagName("numTel").item(0).getTextContent();
+				int unNiveau = Integer.parseInt(courant.getElementsByTagName("niveau").item(0).getTextContent());
+				Date uneDateCreation = Outils.convertirEnDate(courant.getElementsByTagName("dateCreation").item(0).getTextContent(), formatUS);
+				int unNbTraces = Integer.parseInt(courant.getElementsByTagName("nbTraces").item(0).getTextContent());
+				Date uneDateDerniereTrace = Outils.convertirEnDate(courant.getElementsByTagName("dateDerniereTrace").item(0).getTextContent(), formatUS);
+				
+				// crée un objet Utilisateur
+				Utilisateur unUtilisateur = new Utilisateur(unId, unPseudo, unMdpSha1, uneAdrMail, unNumTel, unNiveau, uneDateCreation, unNbTraces, uneDateDerniereTrace);
+				
+				// ajoute l'utilisateur à la collection lesUtilisateurs
+				lesUtilisateurs.add(unUtilisateur);
+			}
+    		
     		// retour de la réponse du service web
     		return reponse;
     	}
@@ -264,6 +383,7 @@ public class PasserelleServicesWeb extends Passerelle {
 			return msg;
 		}
     }
+    
     
     
     
@@ -387,86 +507,9 @@ public class PasserelleServicesWeb extends Passerelle {
     
 
 
-    
-//    // Méthode statique pour confirmer une réservation (service ConfirmerReservation.php)
-//    public static String confirmerReservation(String nomUtilisateur, String mdpUtilisateur, String numReservation)
-//    {
-//    	String reponse = "";
-//    	try
-//    	{	// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
-//    		String urlDuServiceWeb = _adresseHebergeur + _urlConfirmerReservation;
-//            urlDuServiceWeb += "?nom=" + nomUtilisateur;
-//            urlDuServiceWeb += "&mdp=" + mdpUtilisateur;
-//            urlDuServiceWeb += "&numreservation=" + numReservation;
-//    		Document leDocument = getDocumentXML(urlDuServiceWeb);
-//    		
-//    		// parsing du flux XML
-//    		Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
-//    		reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
-//    		
-//    		// retour de la réponse du service web
-//    		return reponse;
-//    	}
-//    	catch (Exception ex)
-//    	{	String msg = "Erreur : " + ex.getMessage();
-//			return msg;
-//		}
-//    }
-  
-    
-//    // Méthode statique pour annuler une réservation (service AnnulerReservation.php)
-//    public static String annulerReservation(String nomUtilisateur, String mdpUtilisateur, String numReservation)
-//    {
-//    	String reponse = "";
-//    	try
-//    	{	// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
-//    		String urlDuServiceWeb = _adresseHebergeur + _urlAnnulerReservation;
-//            urlDuServiceWeb += "?nom=" + nomUtilisateur;
-//            urlDuServiceWeb += "&mdp=" + mdpUtilisateur;
-//            urlDuServiceWeb += "&numreservation=" + numReservation;
-//    		Document leDocument = getDocumentXML(urlDuServiceWeb);
-//    		
-//    		// parsing du flux XML
-//    		Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
-//    		reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
-//    		
-//    		// retour de la réponse du service web
-//    		return reponse;
-//    	}
-//    	catch (Exception ex)
-//    	{	String msg = "Erreur : " + ex.getMessage();
-//			return msg;
-//		}
-//    }
 
-    
 
- 
-    
-//    // Méthode statique pour supprimer un utilisateur (service SupprimerUtilisateur.php)
-//    public static String supprimerUtilisateur(String nomAdmin, String mdpAdmin, String name)
-//    {
-//    	String reponse = "";
-//    	try
-//    	{	// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
-//    		String urlDuServiceWeb = _adresseHebergeur + _urlSupprimerUtilisateur;
-//            urlDuServiceWeb += "?nomAdmin=" + nomAdmin;
-//            urlDuServiceWeb += "&mdpAdmin=" + mdpAdmin;
-//            urlDuServiceWeb += "&name=" + name;
-//    		Document leDocument = getDocumentXML(urlDuServiceWeb);
-//    		
-//    		// parsing du flux XML
-//    		Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
-//    		reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
-//    		
-//    		// retour de la réponse du service web
-//    		return reponse;
-//    	}
-//    	catch (Exception ex)
-//    	{	String msg = "Erreur : " + ex.getMessage();
-//			return msg;
-//		}
-//    }
+
 
     
 //	// Méthode statique pour récupérer la liste des échecs de connexion(service ConsulterEchecsConnexion.php)

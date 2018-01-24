@@ -20,13 +20,13 @@ public class PasserelleTest {
 	@Test
 	public void testConnecter() {
 //		String msg = PasserelleServicesWeb.connecter("admin", "adminnnnnnnn");
-//		assertEquals("Test Passerelle.connecter", "Erreur : authentification incorrecte !", msg);
+//		assertEquals("Erreur : authentification incorrecte !", msg);
 //		
 //		msg = PasserelleServicesWeb.connecter("admin", Outils.sha1("mdpadmin"));
-//		assertEquals("Test Passerelle.connecter", "Administrateur authentifié.", msg);
+//		assertEquals("Administrateur authentifié.", msg);
 //		
 //		msg = PasserelleServicesWeb.connecter("europa", Outils.sha1("mdputilisateur"));
-//		assertEquals("Test Passerelle.connecter", "Utilisateur authentifié.", msg);	
+//		assertEquals("Utilisateur authentifié.", msg);	
 	}
 	
 	
@@ -59,38 +59,68 @@ public class PasserelleTest {
 	@Test
 	public void testCreerUtilisateur() {
 //		String msg = PasserelleServicesWeb.creerUtilisateur("jim", "delasalle.sio.eleves@gmail.com", "1122334455");
-//		assertEquals("Test Passerelle.creerUtilisateur", "Erreur : pseudo trop court (8 car minimum) ou déjà existant !", msg);
+//		assertEquals("Erreur : pseudo trop court (8 car minimum) ou déjà existant !", msg);
 //		
 //		msg = PasserelleServicesWeb.creerUtilisateur("turlututu", "delasalle.sio.elevesgmail.com", "1122334455");
-//		assertEquals("Test Passerelle.creerUtilisateur", "Erreur : adresse mail incorrecte ou déjà existante !", msg);
+//		assertEquals("Erreur : adresse mail incorrecte ou déjà existante !", msg);
 //
 //		msg = PasserelleServicesWeb.creerUtilisateur("turlututu", "delasalle.sio.eleves@gmailcom", "1122334455");
-//		assertEquals("Test Passerelle.creerUtilisateur", "Erreur : adresse mail incorrecte ou déjà existante !", msg);
+//		assertEquals("Erreur : adresse mail incorrecte ou déjà existante !", msg);
 //		
 //		msg = PasserelleServicesWeb.creerUtilisateur("turlututu", "delasalle.sio.eleves@gmail.com", "1122334455");
-//		assertEquals("Test Passerelle.creerUtilisateur", "Erreur : adresse mail incorrecte ou déjà existante !", msg);
+//		assertEquals("Erreur : adresse mail incorrecte ou déjà existante !", msg);
 //		
 //		msg = PasserelleServicesWeb.creerUtilisateur("turlututu", "delasallesioeleves@gmail.com", "1122334455");
-//		assertEquals("Test Passerelle.creerUtilisateur", "Enregistrement effectué. Vous allez recevoir un courriel avec votre mot de passe.", msg);
+//		assertEquals("Enregistrement effectué. Vous allez recevoir un courriel avec votre mot de passe.", msg);
 //		
 //		msg = PasserelleServicesWeb.creerUtilisateur("turlututu", "de.la.salle.sio.eleves@gmail.com", "1122334455");
-//		assertEquals("Test Passerelle.creerUtilisateur", "Erreur : pseudo trop court (8 car minimum) ou déjà existant !", msg);	
+//		assertEquals("Erreur : pseudo trop court (8 car minimum) ou déjà existant !", msg);	
 	}
 
+	
+	@Test
+	public void testDemarrerEnregistrementParcours() {
+//		String msg = PasserelleServicesWeb.demarrerEnregistrementParcours("europa", Outils.sha1("mdputilisateurrrrrr"));
+//		assertEquals("Erreur : authentification incorrecte !", msg);
+//		
+//		msg = PasserelleServicesWeb.demarrerEnregistrementParcours("europa", Outils.sha1("mdputilisateur"));
+//		assertEquals("Trace créée.", msg);	
+	}
+	
 
 	@Test
-	public void testDemarrerEnregistrementParcours() throws ParseException {
-		// http://<hébergeur>/EnvoyerPosition.php?pseudo=europa&mdpSha1=13e3668bbee30b004380052b086457b014504b3e
-		// &idTrace=26&dateHeure=2018-01-01 13:42:21&latitude=48.15&longitude=-1.68&altitude=50&rythmeCardio=80
-
-		Date laDate = Outils.convertirEnDateHeure("2018-01-01 13:42:21");
-		
-		String msg = PasserelleServicesWeb.envoyerPosition("europa", Outils.sha1("mdputilisateurrrrrr"), 23, laDate, 48.15, -1.68, 50, 80);
-		assertEquals("Test Passerelle.connecter", "Erreur : authentification incorrecte !", msg);
-		
-		msg = PasserelleServicesWeb.envoyerPosition("europa", Outils.sha1("mdputilisateur"), 23, laDate, 48.15, -1.68, 50, 80);
-		assertEquals("Test Passerelle.connecter", "Trace créée.", msg);	
+	public void testEnvoyerPosition() throws ParseException {
+//		Date laDate = Outils.convertirEnDateHeure("24/01/2018 13:42:21");
+//		
+//		String msg = PasserelleServicesWeb.envoyerPosition("europa", Outils.sha1("mdputilisateurrrrrr"), 23, laDate, 48.15, -1.68, 50, 80);
+//		assertEquals("Erreur : authentification incorrecte !", msg);
+//		
+//		msg = PasserelleServicesWeb.envoyerPosition("europa", Outils.sha1("mdputilisateur"), 230, laDate, 48.15, -1.68, 50, 80);
+//		assertEquals("Erreur : le numéro de trace n'existe pas !", msg);
+//		
+//		msg = PasserelleServicesWeb.envoyerPosition("europa", Outils.sha1("mdputilisateur"), 22, laDate, 48.15, -1.68, 50, 80);
+//		assertEquals("Erreur : le numéro de trace ne correspond pas à cet utilisateur !", msg);	
+//		
+//		msg = PasserelleServicesWeb.envoyerPosition("europa", Outils.sha1("mdputilisateur"), 23, laDate, 48.15, -1.68, 50, 80);
+//		assertEquals("Point créé.", msg);	
 	}
+	
+	
+	@Test
+	public void testArreterEnregistrementParcours() {
+//		String msg = PasserelleServicesWeb.arreterEnregistrementParcours("europa", Outils.sha1("mdputilisateurrrrrr"), 23);
+//		assertEquals("Erreur : authentification incorrecte !", msg);
+//		
+//		msg = PasserelleServicesWeb.arreterEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), 230);
+//		assertEquals("Erreur : le numéro de trace n'existe pas !", msg);
+//		
+//		msg = PasserelleServicesWeb.arreterEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), 4);
+//		assertEquals("Erreur : cete trace est déjà terminée !", msg);	
+//		
+//		msg = PasserelleServicesWeb.arreterEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), 23);
+//		assertEquals("Enregistrement terminé.", msg);	
+	}
+	
 	
 	
 	
