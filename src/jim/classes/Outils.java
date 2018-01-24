@@ -170,12 +170,22 @@ public class Outils {
 	}
 
 	/**
-	 * convertit une date en une chaine formatée comprenant également l'heure
+	 * convertit une date en une chaine formatée comprenant également l'heure (format FR)
 	 * @param uneDate : la date et l'heure à formater
 	 * @return        : la chaine formatée
 	 */
-	public static String formaterDateHeure(Date uneDate) {
+	public static String formaterDateHeureFR(Date uneDate) {
 		SimpleDateFormat leFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		return leFormat.format(uneDate);
+	}
+	
+	/**
+	 * convertit une date en une chaine formatée comprenant également l'heure (format US)
+	 * @param uneDate : la date et l'heure à formater
+	 * @return        : la chaine formatée
+	 */
+	public static String formaterDateHeureUS(Date uneDate) {
+		SimpleDateFormat leFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return leFormat.format(uneDate);
 	}
 	

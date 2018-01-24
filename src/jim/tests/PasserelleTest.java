@@ -2,6 +2,7 @@ package jim.tests;
 
 import static org.junit.Assert.*;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -78,11 +79,16 @@ public class PasserelleTest {
 
 
 	@Test
-	public void testDemarrerEnregistrementParcours() {
-		String msg = PasserelleServicesWeb.demarrerEnregistrementParcours("europa", Outils.sha1("mdputilisateurrrrrr"));
+	public void testDemarrerEnregistrementParcours() throws ParseException {
+		// http://<hébergeur>/EnvoyerPosition.php?pseudo=europa&mdpSha1=13e3668bbee30b004380052b086457b014504b3e
+		// &idTrace=26&dateHeure=2018-01-01 13:42:21&latitude=48.15&longitude=-1.68&altitude=50&rythmeCardio=80
+
+		Date laDate = Outils.convertirEnDateHeure("2018-01-01 13:42:21");
+		
+		String msg = PasserelleServicesWeb.envoyerPosition("europa", Outils.sha1("mdputilisateurrrrrr"), 23, laDate, 48.15, -1.68, 50, 80);
 		assertEquals("Test Passerelle.connecter", "Erreur : authentification incorrecte !", msg);
 		
-		msg = PasserelleServicesWeb.demarrerEnregistrementParcours("europa", Outils.sha1("mdputilisateur"));
+		msg = PasserelleServicesWeb.envoyerPosition("europa", Outils.sha1("mdputilisateur"), 23, laDate, 48.15, -1.68, 50, 80);
 		assertEquals("Test Passerelle.connecter", "Trace créée.", msg);	
 	}
 	
@@ -90,10 +96,7 @@ public class PasserelleTest {
 	
 	
 	
-	private static String FormaterDateHeure(Date uneDate, String unFormat) {
-		SimpleDateFormat leFormat = new SimpleDateFormat(unFormat);
-		return leFormat.format(uneDate);
-	}
+
 	
 	@Test
 	public void testConsulterReservations() {
@@ -114,7 +117,7 @@ public class PasserelleTest {
 //		Reservation laReservation = unUtilisateur.getLaReservation(0);
 //		assertEquals("Amphithéâtre", laReservation.getRoomName());		
 //		assertEquals(0, laReservation.getStatus());	
-//		assertEquals("2015-06-21 18:00:00", FormaterDateHeure(laReservation.getStartTime(), formatUS));
+//		assertEquals("2015-06-21 18:00:00", Outils.formaterDateHeureUS(laReservation.getStartTime()));
 //		assertEquals("2015-06-22 00:00:00", FormaterDateHeure(laReservation.getEndTime(), formatUS));
 //		
 //		laReservation = unUtilisateur.getLaReservation(1);

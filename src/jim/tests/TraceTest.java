@@ -63,7 +63,7 @@ public class TraceTest {
 		Date debut1 = trace1.getDateHeureDebut();
 		assertNull("Test getDateHeureDebut", debut1);
 		
-		String debut2 = Outils.formaterDateHeure(trace2.getDateHeureDebut());
+		String debut2 = Outils.formaterDateHeureFR(trace2.getDateHeureDebut());
 		assertEquals("Test getDateHeureDebut", "21/06/2016 14:00:00", debut2);		
 	}
 
@@ -72,7 +72,7 @@ public class TraceTest {
 		Date fin1 = trace1.getDateHeureFin();
 		assertNull("Test getDateHeureFin", fin1);
 		
-		String fin2 = Outils.formaterDateHeure(trace2.getDateHeureFin());
+		String fin2 = Outils.formaterDateHeureFR(trace2.getDateHeureFin());
 		assertEquals("Test getDateHeureFin", "21/06/2016 14:10:00", fin2);			
 	}
 

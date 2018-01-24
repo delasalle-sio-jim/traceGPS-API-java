@@ -127,7 +127,7 @@ public class UtilisateurTest {
 		Date dateCreation = utilisateur1.getDateCreation();
 		assertNull("Test getDateCreation", dateCreation);
 		
-		String strDateCreation = Outils.formaterDateHeure(utilisateur2.getDateCreation());
+		String strDateCreation = Outils.formaterDateHeureFR(utilisateur2.getDateCreation());
 		assertEquals("Test getDateCreation", "21/06/2016 14:00:00", strDateCreation);	
 	}
 
@@ -135,7 +135,7 @@ public class UtilisateurTest {
 	public void testSetDateCreation() throws ParseException {
 		Date uneDateCreation = Outils.convertirEnDateHeure("21/06/2016 14:00:00");
 		utilisateur1.setDateCreation(uneDateCreation);
-		String strDateCreation = Outils.formaterDateHeure(utilisateur1.getDateCreation());
+		String strDateCreation = Outils.formaterDateHeureFR(utilisateur1.getDateCreation());
 		assertEquals("Test setDateCreation", "21/06/2016 14:00:00", strDateCreation);
 	}
 
@@ -159,7 +159,7 @@ public class UtilisateurTest {
 		Date dateDerniereTrace = utilisateur1.getDateDerniereTrace();
 		assertNull("Test getDateDerniereTrace", dateDerniereTrace);
 		
-		String strDateDerniereTrace = Outils.formaterDateHeure(utilisateur2.getDateDerniereTrace());
+		String strDateDerniereTrace = Outils.formaterDateHeureFR(utilisateur2.getDateDerniereTrace());
 		assertEquals("Test getDateDerniereTrace", "28/06/2016 14:00:00", strDateDerniereTrace);	
 	}
 
@@ -167,7 +167,7 @@ public class UtilisateurTest {
 	public void testSetDateDerniereTrace() throws ParseException {
 		Date dateDerniereTrace = Outils.convertirEnDateHeure("29/06/2016 14:00:00");
 		utilisateur1.setDateDerniereTrace(dateDerniereTrace);
-		String strDateDerniereTrace = Outils.formaterDateHeure(utilisateur1.getDateDerniereTrace());
+		String strDateDerniereTrace = Outils.formaterDateHeureFR(utilisateur1.getDateDerniereTrace());
 		assertEquals("Test setDateDerniereTrace", "29/06/2016 14:00:00", strDateDerniereTrace);
 	}
 

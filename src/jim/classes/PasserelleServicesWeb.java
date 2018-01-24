@@ -38,10 +38,10 @@ public class PasserelleServicesWeb extends Passerelle {
 	private static String _urlChangerDeMdp = "ChangerDeMdp.php";
 	private static String _urlCreerUtilisateur = "CreerUtilisateur.php";
 	private static String _urlDemarrerEnregistrementParcours = "DemarrerEnregistrementParcours.php";
-	
+    private static String _urlEnvoyerPosition = "EnvoyerPosition.php";
+    
 	// noms des services web pas encore traités par la passerelle (à développer)
 	private static String _urlArreterEnregistrementParcours = "ArreterEnregistrementParcours.php";
-    private static String _urlEnvoyerPosition = "EnvoyerPosition.php";
 	private static String _urlGetLesParcoursDunUtilisateur = "GetLesParcoursDunUtilisateur.php";
 	private static String _urlGetLesUtilisateursQueJautorise = "GetLesUtilisateursQueJautorise.php";
 	private static String _urlGetLesUtilisateursQuiMautorisent = "GetLesUtilisateursQuiMautorisent.php";	
@@ -220,7 +220,50 @@ public class PasserelleServicesWeb extends Passerelle {
 		}
     }  
     
-    
+  
+    // Méthode statique pour envoyer la position de l'utilisateur (service EnvoyerPosition.php)
+	// Le service web doit recevoir 8 paramètres :
+	//    pseudo : le pseudo de l'utilisateur
+	//    mdpSha1 : le mot de passe hashé en sha1
+	//    idTrace : l'id de la trace dont le point fera partie
+	//    dateHeure : la date et l'heure au point de passage (format 'Y-m-d H:i:s')
+	//    latitude : latitude du point de passage
+	//    longitude : longitude du point de passage
+	//    altitude : altitude du point de passage
+	//    rythmeCardio : rythme cardiaque au point de passage (ou 0 si le rythme n'est pas mesurable)
+    public static String envoyerPosition(String pseudo, String mdpSha1, int idTrace, Date dateHeure, double latitude, double longitude, double altitude, int rythmeCardio)
+    {
+    	String reponse = "";
+    	try
+    	{	// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
+    		String urlDuServiceWeb = _adresseHebergeur + _urlEnvoyerPosition;
+            urlDuServiceWeb += "?pseudo=" + pseudo;
+            urlDuServiceWeb += "&mdpSha1=" + mdpSha1;
+            urlDuServiceWeb += "&idTrace=" + idTrace;
+            urlDuServiceWeb += "&dateHeure=" + Outils.formaterDateHeureUS(dateHeure);
+            urlDuServiceWeb += "&latitude=" + latitude;
+            urlDuServiceWeb += "&longitude=" + longitude;
+            urlDuServiceWeb += "&altitude=" + altitude;
+            urlDuServiceWeb += "&rythmeCardio=" + rythmeCardio;
+            
+			// création d'un flux en lecture (InputStream) à partir du fichier
+			InputStream unFluxEnLecture = getFluxEnLecture(urlDuServiceWeb);
+			
+			// création d'un objet org.w3c.dom.Document à partir du flux ; il servira à parcourir le flux XML
+			Document leDocument = getDocumentXML(unFluxEnLecture);
+    		
+    		// parsing du flux XML
+    		Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
+    		reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
+    		
+    		// retour de la réponse du service web
+    		return reponse;
+    	}
+    	catch (Exception ex)
+    	{	String msg = "Erreur : " + ex.getMessage();
+			return msg;
+		}
+    }
     
     
     

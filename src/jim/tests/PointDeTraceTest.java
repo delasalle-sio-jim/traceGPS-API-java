@@ -28,7 +28,7 @@ public class PointDeTraceTest {
 	@Test
 	public void testGetDateHeure() {
 		assertEquals("Test getDateHeure", null, point1.getDateHeure());
-		assertEquals("Test getDateHeure", "21/06/2016 14:30:20", Outils.formaterDateHeure(point2.getDateHeure()));
+		assertEquals("Test getDateHeure", "21/06/2016 14:30:20", Outils.formaterDateHeureFR(point2.getDateHeure()));
 	}
 
 	@Test
@@ -85,7 +85,7 @@ public class PointDeTraceTest {
 	public void testSetDateHeure() throws ParseException {
 		Date uneDate = Outils.convertirEnDateHeure("22/07/2017 15:31:21");
 		point1.setDateHeure(uneDate);
-		assertEquals("Test getDateHeure", "22/07/2017 15:31:21", Outils.formaterDateHeure(point1.getDateHeure()));
+		assertEquals("Test getDateHeure", "22/07/2017 15:31:21", Outils.formaterDateHeureFR(point1.getDateHeure()));
 	}
 	
 	@Test

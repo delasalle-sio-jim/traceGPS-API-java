@@ -89,10 +89,10 @@ public class Utilisateur {
 	    msg += "numTel : " + _numTel + "\n";
 	    msg += "niveau : " + _niveau + "\n";
 	    if (this._dateCreation != null)
-	    	msg += "dateCreation : " + Outils.formaterDateHeure(_dateCreation) + "\n";
+	    	msg += "dateCreation : " + Outils.formaterDateHeureFR(_dateCreation) + "\n";
 	    msg += "nbTraces : " + _nbTraces + "\n";
 	    if (this._dateDerniereTrace != null)
-	    	msg += "dateDerniereTrace : " + Outils.formaterDateHeure(_dateDerniereTrace) + "\n";
+	    	msg += "dateDerniereTrace : " + Outils.formaterDateHeureFR(_dateDerniereTrace) + "\n";
 	    
 	    return msg;
 	}

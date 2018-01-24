@@ -143,7 +143,7 @@ public class PointDeTrace extends Point {
 		msg += "Id point :\t" + Outils.formaterNombre(_id, "0") + "\n";	
 		msg += super.toString();
 		if (this._dateHeure != null)
-			msg += "Heure de passage :\t" + Outils.formaterDateHeure(this._dateHeure) + "\n";
+			msg += "Heure de passage :\t" + Outils.formaterDateHeureFR(this._dateHeure) + "\n";
         msg += "Rythme cardiaque :\t" + Outils.formaterNombre(_rythmeCardio, "0") + "\n";
         msg += "Temps cumule (s) :\t" + Outils.formaterNombre(_tempsCumule, "0") + "\n";
         msg += "Temps cumule (hh:mm:ss) :\t" + getTempsCumuleEnChaine() + "\n";
