@@ -1,4 +1,4 @@
-package jim.tests;
+package jim.testsunitaires;
 
 import static org.junit.Assert.*;
 

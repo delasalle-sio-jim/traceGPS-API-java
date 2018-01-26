@@ -1,6 +1,12 @@
-package jim.classes;
+package jim.testsvisuels;
 
-public class Main {
+import jim.classes.PasserelleFichier;
+import jim.classes.PasserelleGPX;
+import jim.classes.PasserellePWX;
+import jim.classes.PasserelleTCX;
+import jim.classes.Trace;
+
+public class TestPasserelleFichier {
 
 	public static void main(String[] args) {
         // test des passerelles

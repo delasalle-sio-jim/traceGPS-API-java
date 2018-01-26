@@ -1,4 +1,4 @@
-package jim.tests;
+package jim.testsunitaires;
 
 import static org.junit.Assert.*;
 
@@ -15,7 +15,7 @@ import jim.classes.PointDeTrace;
 import jim.classes.Trace;
 import jim.classes.Utilisateur;
 
-public class PasserelleTest {
+public class PasserelleServiceWebTest {
 
 	@Test
 	public void testConnecter() {
@@ -80,10 +80,12 @@ public class PasserelleTest {
 	
 	@Test
 	public void testDemarrerEnregistrementParcours() {
-//		String msg = PasserelleServicesWeb.demarrerEnregistrementParcours("europa", Outils.sha1("mdputilisateurrrrrr"));
+//		Trace laTrace = new Trace();
+//		String msg = PasserelleServicesWeb.demarrerEnregistrementParcours("europa", Outils.sha1("mdputilisateurrrrrr"), laTrace);
 //		assertEquals("Erreur : authentification incorrecte !", msg);
 //		
-//		msg = PasserelleServicesWeb.demarrerEnregistrementParcours("europa", Outils.sha1("mdputilisateur"));
+//		laTrace = new Trace();
+//		msg = PasserelleServicesWeb.demarrerEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), laTrace);
 //		assertEquals("Trace créée.", msg);	
 	}
 	
@@ -92,33 +94,37 @@ public class PasserelleTest {
 	public void testEnvoyerPosition() throws ParseException {
 //		Date laDate = Outils.convertirEnDateHeure("24/01/2018 13:42:21");
 //		
-//		String msg = PasserelleServicesWeb.envoyerPosition("europa", Outils.sha1("mdputilisateurrrrrr"), 23, laDate, 48.15, -1.68, 50, 80);
+//		PointDeTrace lePoint = new PointDeTrace(23, 0, 48.15, -1.68, 50, laDate, 80);
+//		String msg = PasserelleServicesWeb.envoyerPosition("europa", Outils.sha1("mdputilisateurrrrrr"), lePoint);
 //		assertEquals("Erreur : authentification incorrecte !", msg);
 //		
-//		msg = PasserelleServicesWeb.envoyerPosition("europa", Outils.sha1("mdputilisateur"), 230, laDate, 48.15, -1.68, 50, 80);
+//		lePoint = new PointDeTrace(2333, 0, 48.15, -1.68, 50, laDate, 80);
+//		msg = PasserelleServicesWeb.envoyerPosition("europa", Outils.sha1("mdputilisateur"), lePoint);
 //		assertEquals("Erreur : le numéro de trace n'existe pas !", msg);
 //		
-//		msg = PasserelleServicesWeb.envoyerPosition("europa", Outils.sha1("mdputilisateur"), 22, laDate, 48.15, -1.68, 50, 80);
+//		lePoint = new PointDeTrace(22, 0, 48.15, -1.68, 50, laDate, 80);
+//		msg = PasserelleServicesWeb.envoyerPosition("europa", Outils.sha1("mdputilisateur"), lePoint);
 //		assertEquals("Erreur : le numéro de trace ne correspond pas à cet utilisateur !", msg);	
 //		
-//		msg = PasserelleServicesWeb.envoyerPosition("europa", Outils.sha1("mdputilisateur"), 23, laDate, 48.15, -1.68, 50, 80);
+//		lePoint = new PointDeTrace(23, 0, 48.15, -1.68, 50, laDate, 80);
+//		msg = PasserelleServicesWeb.envoyerPosition("europa", Outils.sha1("mdputilisateur"), lePoint);
 //		assertEquals("Point créé.", msg);	
 	}
 	
 	
 	@Test
 	public void testArreterEnregistrementParcours() {
-//		String msg = PasserelleServicesWeb.arreterEnregistrementParcours("europa", Outils.sha1("mdputilisateurrrrrr"), 23);
-//		assertEquals("Erreur : authentification incorrecte !", msg);
-//		
-//		msg = PasserelleServicesWeb.arreterEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), 230);
-//		assertEquals("Erreur : le numéro de trace n'existe pas !", msg);
-//		
-//		msg = PasserelleServicesWeb.arreterEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), 4);
-//		assertEquals("Erreur : cete trace est déjà terminée !", msg);	
-//		
-//		msg = PasserelleServicesWeb.arreterEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), 23);
-//		assertEquals("Enregistrement terminé.", msg);	
+		String msg = PasserelleServicesWeb.arreterEnregistrementParcours("europa", Outils.sha1("mdputilisateurrrrrr"), 23);
+		assertEquals("Erreur : authentification incorrecte !", msg);
+		
+		msg = PasserelleServicesWeb.arreterEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), 230);
+		assertEquals("Erreur : le numéro de trace n'existe pas !", msg);
+		
+		msg = PasserelleServicesWeb.arreterEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), 4);
+		assertEquals("Erreur : cette trace est déjà terminée !", msg);	
+		
+		msg = PasserelleServicesWeb.arreterEnregistrementParcours("europa", Outils.sha1("mdputilisateur"), 23);
+		assertEquals("Enregistrement terminé.", msg);	
 	}
 	
 	
