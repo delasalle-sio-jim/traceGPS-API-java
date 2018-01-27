@@ -44,18 +44,18 @@ public class PasserelleServicesWeb extends Passerelle {
 	private static String _urlGetTousLesUtilisateurs = "GetTousLesUtilisateurs.php";
 	private static String _urlGetLesUtilisateursQueJautorise = "GetLesUtilisateursQueJautorise.php";
 	private static String _urlGetLesUtilisateursQuiMautorisent = "GetLesUtilisateursQuiMautorisent.php";
-	
-	// noms des services web pas encore traités par la passerelle (à développer)
-	private static String _urlGetLesParcoursDunUtilisateur = "GetLesParcoursDunUtilisateur.php";		
 	private static String _urlGetUnParcoursEtSesPoints = "GetUnParcoursEtSesPoints.php";
+	private static String _urlGetLesParcoursDunUtilisateur = "GetLesParcoursDunUtilisateur.php";
 	private static String _urlSupprimerUneAutorisation = "SupprimerUneAutorisation.php";
-	private static String _urlSupprimerUnParcours = "SupprimerUnParcours.php";	
+	private static String _urlSupprimerUnParcours = "SupprimerUnParcours.php";
 	private static String _urlSupprimerUnUtilisateur = "SupprimerUnUtilisateur.php";
+	
+	// noms des services web pas encore traités par la passerelle (à développer)		
 
 	
     // Méthode statique pour se connecter (service Connecter.php)
 	// La méthode doit recevoir 2 paramètres :
-	//    pseudo : le pseudo de l'utilisateur
+	//    pseudo : le pseudo de l'utilisateur qui fait appel au service web
 	//    mdpSha1 : le mot de passe hashé en sha1
     public static String connecter(String pseudo, String mdpSha1)
     {
@@ -119,7 +119,7 @@ public class PasserelleServicesWeb extends Passerelle {
 	
     // Méthode statique pour modifier son mot de passe (service ChangerDeMdp.php)
 	// La méthode doit recevoir 4 paramètres :
-	//    pseudo : le pseudo de l'utilisateur
+	//    pseudo : le pseudo de l'utilisateur qui fait appel au service web
 	//    mdpSha1 : le mot de passe hashé en sha1
 	//    nouveauMdp : le nouveau mot de passe
 	//    confirmationMdp : la confirmation du nouveau mot de passe
@@ -156,7 +156,7 @@ public class PasserelleServicesWeb extends Passerelle {
     
     // Méthode statique pour créer un utilisateur (service CreerUtilisateur.php)
 	// La méthode doit recevoir 3 paramètres :
-	//   pseudo : le pseudo de l'utilisateur
+	//   pseudo : le pseudo de l'utilisateur qui fait appel au service web
 	//   adrMail : son adresse mail
 	//   numTel : son numéro de téléphone
     public static String creerUtilisateur(String pseudo, String adrMail, String numTel)
@@ -191,7 +191,7 @@ public class PasserelleServicesWeb extends Passerelle {
     
     // Méthode statique pour démarrer l'enregistrement d'un parcours (service DemarrerEnregistrementParcours.php)
 	// La méthode doit recevoir 3 paramètres :
-	//    pseudo : le pseudo de l'utilisateur
+	//    pseudo : le pseudo de l'utilisateur qui fait appel au service web
 	//    mdpSha1 : le mot de passe hashé en sha1
     //    laTrace : un objet Trace (vide) à remplir à partir des données fournies par le service web
     public static String demarrerEnregistrementParcours(String pseudo, String mdpSha1, Trace laTrace)
@@ -254,7 +254,7 @@ public class PasserelleServicesWeb extends Passerelle {
   
     // Méthode statique pour envoyer la position de l'utilisateur (service EnvoyerPosition.php)
 	// La méthode doit recevoir 3 paramètres :
-	//    pseudo : le pseudo de l'utilisateur
+	//    pseudo : le pseudo de l'utilisateur qui fait appel au service web
 	//    mdpSha1 : le mot de passe hashé en sha1
 	//    lePoint : un objet PointDeTrace (vide) qui permettra de récupérer le numéro attribué à partir des données fournies par le service web
     public static String envoyerPosition(String pseudo, String mdpSha1, PointDeTrace lePoint)
@@ -293,9 +293,9 @@ public class PasserelleServicesWeb extends Passerelle {
 			{	// récupération du premier et seul élément de la liste
 				Element courant = (Element) listeNoeuds.item(0);
 				// lecture de la balise
-				int idPoint = Integer.parseInt(courant.getTextContent());
+				int id = Integer.parseInt(courant.getTextContent());
 				// mise à jour de l'objet lePoint passé en paramètre
-				lePoint.setId(idPoint);		
+				lePoint.setId(id);		
 			}
 			
     		// retour de la réponse du service web
@@ -310,7 +310,7 @@ public class PasserelleServicesWeb extends Passerelle {
     
     // Méthode statique pour terminer l'enregistrement d'un parcours (service ArreterEnregistrementParcours.php)
 	// La méthode doit recevoir 3 paramètres :
-	//    pseudo : le pseudo de l'utilisateur
+	//    pseudo : le pseudo de l'utilisateur qui fait appel au service web
 	//    mdpSha1 : le mot de passe hashé en sha1
 	//    idTrace : l'id de la trace à terminer
     public static String arreterEnregistrementParcours(String pseudo, String mdpSha1, int idTrace)
@@ -350,8 +350,8 @@ public class PasserelleServicesWeb extends Passerelle {
     
     
     // Méthode statique pour obtenir la liste de tous les utilisateurs de niveau 1 (service GetTousLesUtilisateurs.php)
-	// La méthode doit recevoir 2 paramètres :
-	//    pseudo : le pseudo de l'utilisateur
+	// La méthode doit recevoir 3 paramètres :
+	//    pseudo : le pseudo de l'utilisateur qui fait appel au service web
 	//    mdpSha1 : le mot de passe hashé en sha1
     //    lesUtilisateurs : collection (vide) à remplir à partir des données fournies par le service web
     public static String getTousLesUtilisateurs(String pseudo, String mdpSha1, ArrayList<Utilisateur> lesUtilisateurs)
@@ -426,8 +426,8 @@ public class PasserelleServicesWeb extends Passerelle {
     
     
     // Méthode statique pour obtenir la liste des utilisateurs que j'autorise (service GetLesUtilisateursQueJautorise.php)
-	// La méthode doit recevoir 2 paramètres :
-	//    pseudo : le pseudo de l'utilisateur
+	// La méthode doit recevoir 3 paramètres :
+	//    pseudo : le pseudo de l'utilisateur qui fait appel au service web
 	//    mdpSha1 : le mot de passe hashé en sha1
     //    lesUtilisateurs : collection (vide) à remplir à partir des données fournies par le service web
     public static String getLesUtilisateursQueJautorise(String pseudo, String mdpSha1, ArrayList<Utilisateur> lesUtilisateurs)
@@ -502,8 +502,8 @@ public class PasserelleServicesWeb extends Passerelle {
     
     
     // Méthode statique pour obtenir la liste des utilisateurs qui m'autorisent (service GetLesUtilisateursQuiMautorisent.php)
-	// La méthode doit recevoir 2 paramètres :
-	//    pseudo : le pseudo de l'utilisateur
+	// La méthode doit recevoir 3 paramètres :
+	//    pseudo : le pseudo de l'utilisateur qui fait appel au service web
 	//    mdpSha1 : le mot de passe hashé en sha1
     //    lesUtilisateurs : collection (vide) à remplir à partir des données fournies par le service web
     public static String getLesUtilisateursQuiMautorisent(String pseudo, String mdpSha1, ArrayList<Utilisateur> lesUtilisateurs)
@@ -577,12 +577,319 @@ public class PasserelleServicesWeb extends Passerelle {
     }  
     
 
+    // Méthode statique pour obtenir un parcours et la liste de ses points (service GetUnParcoursEtSesPoints.php)
+	// La méthode doit recevoir 4 paramètres :
+    //    pseudo : le pseudo de l'utilisateur qui fait appel au service web
+	//    mdpSha1 : le mot de passe hashé en sha1
+    //    idTrace : l'id de la trace à consulter
+    //    laTrace : objet Trace (vide) à remplir à partir des données fournies par le service web
+    public static String getUnParcoursEtSesPoints(String pseudo, String mdpSha1, int idTrace, Trace laTrace)
+    {
+    	String etape = "";
+    	String reponse = "";
+    	try
+    	{	// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
+    		String urlDuServiceWeb = _adresseHebergeur + _urlGetUnParcoursEtSesPoints;
+			urlDuServiceWeb += "?pseudo=" + pseudo;
+			urlDuServiceWeb += "&mdpSha1=" + mdpSha1;
+			urlDuServiceWeb += "&idTrace=" + idTrace;
+    		
+			etape = "1";
+			// création d'un flux en lecture (InputStream) à partir du fichier
+			InputStream unFluxEnLecture = getFluxEnLecture(urlDuServiceWeb);
+			
+			etape = "2";
+			// création d'un objet org.w3c.dom.Document à partir du flux ; il servira à parcourir le flux XML
+			Document leDocument = getDocumentXML(unFluxEnLecture);
+    		
+    		// parsing du flux XML
+			etape = "3";
+    		Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
+    		etape = "4";
+    		reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
+    		
+    		// récupérer les données de la balise trace
+    		etape = "5";
+			NodeList listeNoeudsTraces = racine.getElementsByTagName("trace");
+			/* Exemple de données obtenues pour une trace :
+			    <trace>
+			      <idTrace>2</idTrace>
+			      <dateHeureDebut>2018-01-19 13:08:48</dateHeureDebut> 
+			      <terminee>1</terminee>
+			      <dateHeureFin>2018-01-19 13:11:48</dateHeureFin>
+			      <idUtilisateur>2</idUtilisateur>
+			    </trace>
+			 */
+    		
+			if (listeNoeudsTraces.getLength() > 0)
+			{
+				// récupération du premier et seul élément de la liste
+				etape = "6";
+				Element courant = (Element) listeNoeudsTraces.item(0);
+				
+				// lecture des balises intérieures
+				etape = "7";
+				int unId = Integer.parseInt(courant.getElementsByTagName("id").item(0).getTextContent());
+				etape = "8";
+				Date uneDateHeureDebut = Outils.convertirEnDate(courant.getElementsByTagName("dateHeureDebut").item(0).getTextContent(), formatDateUS);
+				etape = "9";
+				boolean terminee = (Integer.parseInt((courant.getElementsByTagName("terminee").item(0).getTextContent())) == 1);
+				etape = "10";
+				Date uneDateHeureFin = null;
+				if (terminee == true)
+					uneDateHeureFin = Outils.convertirEnDate(courant.getElementsByTagName("dateHeureFin").item(0).getTextContent(), formatDateUS);
+				int unIdUtilisateur = Integer.parseInt(courant.getElementsByTagName("idUtilisateur").item(0).getTextContent());
+				etape = "11";
+				
+				// Mise à jour de l'objet Trace passé en paramètre
+				laTrace.setId(unId);
+				laTrace.setDateHeureDebut(uneDateHeureDebut);
+				laTrace.setDateHeureFin(uneDateHeureFin);
+				laTrace.setTerminee(terminee);
+				laTrace.setIdUtilisateur(unIdUtilisateur);
+				
+				// récupérer les données des balises points
+	    		etape = "12";
+				NodeList listeNoeudsPoints = racine.getElementsByTagName("point");
+				/* Exemple de données obtenues pour un point :
+				      <point>
+				        <id>1</id>
+				        <latitude>48.2109</latitude>
+				        <longitude>-1.5535</longitude>
+				        <altitude>60</altitude>
+				        <dateHeure>2018-01-19 13:08:48</dateHeure>
+				        <rythmeCardio>81</rythmeCardio>
+				      </point>
+				 */
+				
+				// vider d'abord la collection des poins avant de la remplir
+				laTrace.viderListePoints();
+				
+				// parcours de la liste des noeuds <point> et ajout dans la collection
+				for (int i = 0 ; i <= listeNoeudsPoints.getLength()-1 ; i++)
+				{	// création de l'élement courant à chaque tour de boucle
+					Element pointCourant = (Element) listeNoeudsPoints.item(i);
+					
+					// lecture des balises intérieures
+					int id = Integer.parseInt(pointCourant.getElementsByTagName("id").item(0).getTextContent());
+					double uneLatitude = Double.parseDouble(pointCourant.getElementsByTagName("latitude").item(0).getTextContent());
+					double uneLongitude = Double.parseDouble(pointCourant.getElementsByTagName("longitude").item(0).getTextContent());
+					double uneAltitude = Double.parseDouble(pointCourant.getElementsByTagName("altitude").item(0).getTextContent());
+					Date uneDateHeure = Outils.convertirEnDate(pointCourant.getElementsByTagName("dateHeure").item(0).getTextContent(), formatDateUS);
+					int unRythmeCardio = Integer.parseInt(pointCourant.getElementsByTagName("rythmeCardio").item(0).getTextContent());
+					
+					// crée un objet PointDeTrace
+					PointDeTrace unPointDeTrace = new PointDeTrace(idTrace, id, uneLatitude, uneLongitude, uneAltitude, uneDateHeure, unRythmeCardio);
+					
+					// ajoute le points à la collection des points
+					laTrace.ajouterPoint(unPointDeTrace);
+				}
+			}
+    		
+    		// retour de la réponse du service web
+    		return reponse;
+    	}
+    	catch (Exception ex)
+    	{	String msg = "Erreur : " + ex.getMessage();
+    		msg += "\nEtape : " + etape;
+			return msg;
+		}
+    }
     
     
+    // Méthode statique pour obtenir la liste des parcours d'un utilisateur (service GetLesParcoursDunUtilisateur.php)
+	// La méthode doit recevoir 4 paramètres :
+	//    pseudo : le pseudo de l'utilisateur qui fait appel au service web
+	//    mdpSha1 : le mot de passe hashé en sha1
+    //    idUtilisateur : l'id de l'utilisateur dont on veut la liste des parcours
+    //    lesTraces : collection (vide) à remplir à partir des données fournies par le service web
+    public static String getLesParcoursDunUtilisateur(String pseudo, String mdpSha1, int idUtilisateur, ArrayList<Trace> lesTraces)
+    {
+    	String etape = "";
+    	String reponse = "";
+    	try
+    	{	// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
+    		String urlDuServiceWeb = _adresseHebergeur + _urlGetLesParcoursDunUtilisateur;
+			urlDuServiceWeb += "?pseudo=" + pseudo;
+			urlDuServiceWeb += "&mdpSha1=" + mdpSha1;
+			urlDuServiceWeb += "&idUtilisateur=" + idUtilisateur;
+    		
+			etape = "1";
+			// création d'un flux en lecture (InputStream) à partir du fichier
+			InputStream unFluxEnLecture = getFluxEnLecture(urlDuServiceWeb);
+			
+			etape = "2";
+			// création d'un objet org.w3c.dom.Document à partir du flux ; il servira à parcourir le flux XML
+			Document leDocument = getDocumentXML(unFluxEnLecture);
+    		
+    		// parsing du flux XML
+			etape = "3";
+    		Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
+    		etape = "4";
+    		reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
+    		
+    		// récupérer les données des balises trace
+    		etape = "5";
+			NodeList listeNoeudsTraces = racine.getElementsByTagName("trace");
+			
+			/* Exemple de données obtenues pour une trace :
+			    <trace>
+			      <idTrace>2</idTrace>
+			      <dateHeureDebut>2018-01-19 13:08:48</dateHeureDebut> 
+			      <terminee>1</terminee>
+			      <dateHeureFin>2018-01-19 13:11:48</dateHeureFin>
+			      <idUtilisateur>2</idUtilisateur>
+			    </trace>
+			 */
+    		
+			// vider d'abord la collection avant de la remplir
+			lesTraces.clear();
+			
+			// parcours de la liste des noeuds <trace> et ajout dans la collection lesTraces
+			for (int i = 0 ; i <= listeNoeudsTraces.getLength()-1 ; i++)
+			{	// création de l'élement courant à chaque tour de boucle
+				etape = "6";
+				Element courant = (Element) listeNoeudsTraces.item(i);
+				
+				// lecture des balises intérieures
+				etape = "7";
+				int unId = Integer.parseInt(courant.getElementsByTagName("id").item(0).getTextContent());
+				etape = "8";
+				Date uneDateHeureDebut = Outils.convertirEnDate(courant.getElementsByTagName("dateHeureDebut").item(0).getTextContent(), formatDateUS);
+				etape = "9";
+				boolean terminee = (Integer.parseInt((courant.getElementsByTagName("terminee").item(0).getTextContent())) == 1);
+				etape = "10";
+				Date uneDateHeureFin = null;
+				if (terminee == true)
+					uneDateHeureFin = Outils.convertirEnDate(courant.getElementsByTagName("dateHeureFin").item(0).getTextContent(), formatDateUS);
+				etape = "11";
+				int unIdUtilisateur = Integer.parseInt(courant.getElementsByTagName("idUtilisateur").item(0).getTextContent());
+
+				// crée un objet Trace
+				Trace uneTrace = new Trace(unId, uneDateHeureDebut, uneDateHeureFin, terminee, unIdUtilisateur);
+				
+				// ajoute la trace à la collection lesTraces
+				lesTraces.add(uneTrace);
+			}
+			
+    		// retour de la réponse du service web
+    		return reponse;
+    	}
+    	catch (Exception ex)
+    	{	String msg = "Erreur : " + ex.getMessage();
+    		msg += "\nEtape : " + etape;
+			return msg;
+		}
+    }
 
 
+    // Méthode statique pour supprimer une autorisation (service SupprimerUneAutorisation.php)
+	// La méthode doit recevoir 3 paramètres :
+	//   pseudo : le pseudo de l'utilisateur qui fait appel au service web
+	//   mdpSha1 : le mot de passe hashé en sha1
+	//   pseudoARetirer : le pseudo de l'utilisateur à qui on veut retirer l'autorisation
+    public static String supprimerUneAutorisation(String pseudo, String mdpSha1, String pseudoARetirer)
+    {
+    	String reponse = "";
+    	try
+    	{	// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
+    		String urlDuServiceWeb = _adresseHebergeur + _urlSupprimerUneAutorisation;
+            urlDuServiceWeb += "?pseudo=" + pseudo;
+            urlDuServiceWeb += "&mdpSha1=" + mdpSha1;
+            urlDuServiceWeb += "&pseudoARetirer=" + pseudoARetirer;
 
+			// création d'un flux en lecture (InputStream) à partir du fichier
+			InputStream unFluxEnLecture = getFluxEnLecture(urlDuServiceWeb);
+			
+			// création d'un objet org.w3c.dom.Document à partir du flux ; il servira à parcourir le flux XML
+			Document leDocument = getDocumentXML(unFluxEnLecture);
+    		
+    		// parsing du flux XML
+    		Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
+    		reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
+    		
+    		// retour de la réponse du service web
+    		return reponse;
+    	}
+    	catch (Exception ex)
+    	{	String msg = "Erreur : " + ex.getMessage();
+			return msg;
+		}
+    }
+   
+    
+    // Méthode statique pour supprimer un parcours (service SupprimerUnParcours.php)
+	// La méthode doit recevoir 3 paramètres :
+	//   pseudo : le pseudo de l'utilisateur qui fait appel au service web
+	//   mdpSha1 : le mot de passe hashé en sha1
+	//   idTrace : l'id de la trace à supprimer
+    public static String supprimerUnParcours(String pseudo, String mdpSha1, int idTrace)
+    {
+    	String reponse = "";
+    	try
+    	{	// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
+    		String urlDuServiceWeb = _adresseHebergeur + _urlSupprimerUnParcours;
+            urlDuServiceWeb += "?pseudo=" + pseudo;
+            urlDuServiceWeb += "&mdpSha1=" + mdpSha1;
+            urlDuServiceWeb += "&idTrace=" + idTrace;
 
+			// création d'un flux en lecture (InputStream) à partir du fichier
+			InputStream unFluxEnLecture = getFluxEnLecture(urlDuServiceWeb);
+			
+			// création d'un objet org.w3c.dom.Document à partir du flux ; il servira à parcourir le flux XML
+			Document leDocument = getDocumentXML(unFluxEnLecture);
+    		
+    		// parsing du flux XML
+    		Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
+    		reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
+    		
+    		// retour de la réponse du service web
+    		return reponse;
+    	}
+    	catch (Exception ex)
+    	{	String msg = "Erreur : " + ex.getMessage();
+			return msg;
+		}
+    }
+    
+    
+    // Méthode statique pour supprimer un utilisateur (service SupprimerUnUtilisateur.php)
+    // Ce service permet à un administrateur de supprimer un utilisateur (à condition qu'il ne possède aucune trace enregistrée)
+	// La méthode doit recevoir 3 paramètres :
+	//   pseudo : le pseudo de l'utilisateur qui fait appel au service web
+	//   mdpSha1 : le mot de passe hashé en sha1
+	//   pseudoAsupprimer : le pseudo de l'utilisateur à supprimer
+    public static String supprimerUnUtilisateur(String pseudo, String mdpSha1, String pseudoAsupprimer)
+    {
+    	String reponse = "";
+    	try
+    	{	// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
+    		String urlDuServiceWeb = _adresseHebergeur + _urlSupprimerUnUtilisateur;
+            urlDuServiceWeb += "?pseudo=" + pseudo;
+            urlDuServiceWeb += "&mdpSha1=" + mdpSha1;
+            urlDuServiceWeb += "&pseudoAsupprimer=" + pseudoAsupprimer;
+
+			// création d'un flux en lecture (InputStream) à partir du fichier
+			InputStream unFluxEnLecture = getFluxEnLecture(urlDuServiceWeb);
+			
+			// création d'un objet org.w3c.dom.Document à partir du flux ; il servira à parcourir le flux XML
+			Document leDocument = getDocumentXML(unFluxEnLecture);
+    		
+    		// parsing du flux XML
+    		Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
+    		reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
+    		
+    		// retour de la réponse du service web
+    		return reponse;
+    	}
+    	catch (Exception ex)
+    	{	String msg = "Erreur : " + ex.getMessage();
+			return msg;
+		}
+    }
+    
+    
+    
 
 
     

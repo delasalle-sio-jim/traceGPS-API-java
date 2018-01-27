@@ -196,10 +196,10 @@ public class Trace {
         msg += "Id : \t\t\t\t" + getId() + "\n";
         msg += "Utilisateur : \t\t\t" + getIdUtilisateur() + "\n";
         if (getDateHeureDebut() != null) msg += "Heure de début :\t\t" + Outils.formaterDateHeureFR(getDateHeureDebut()) + "\n";
-        if (getTerminee()) msg += "Terminée : Oui \n"; else msg += "Terminée : Non \n";
+        if (getDateHeureFin() != null) msg += "Heure de fin :\t\t\t" + Outils.formaterDateHeureFR(getDateHeureFin()) + "\n";
+        if (getTerminee()) msg += "Terminée : \t\t\tOui \n"; else msg += "Terminée : \t\t\tNon \n";
 		msg += "Nombre de points :\t\t" + Outils.formaterNombre(getNombrePoints(), "00000") + "\n";
 		if (getNombrePoints() > 0) {
-			if (getDateHeureFin() != null) msg += "Heure de fin :\t\t\t" + Outils.formaterDateHeureFR(getDateHeureFin()) + "\n";
 			msg += "Durée en secondes :\t\t" + getDureeEnSecondes() + "\n";
 			msg += "Durée totale :\t\t\t" + getDureeTotale() + "\n";
 			msg += "Distance totale en Km :\t\t" + Outils.formaterNombre(getDistanceTotale(), "000.00") + "\n";
