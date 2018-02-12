@@ -1,12 +1,12 @@
 package jim.testsvisuels;
 
-import jim.classes.PasserelleFichier;
+import jim.classes.PasserelleFichierXML;
 import jim.classes.PasserelleGPX;
 import jim.classes.PasserellePWX;
 import jim.classes.PasserelleTCX;
 import jim.classes.Trace;
 
-public class TestPasserelleFichier {
+public class TestPasserelleFichierXML {
 
 	public static void main(String[] args) {
         // test des passerelles
@@ -18,7 +18,7 @@ public class TestPasserelleFichier {
         //nomFichier = "fit-20161203T102115.tcx";
 
         Trace laTrace = new Trace();
-        PasserelleFichier laPasserelle = null;
+        PasserelleFichierXML laPasserelle = null;
 
         // création de la passerelle en fonction du type de fichier
         if (nomFichier.toLowerCase().endsWith(".gpx")) laPasserelle = new PasserelleGPX();

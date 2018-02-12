@@ -23,7 +23,7 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-public class PasserelleServicesWeb extends Passerelle {
+public class PasserelleServicesWebXML extends PasserelleXML {
 
 	// attributs privés
 	private static String formatDateUS = "yyyy-MM-dd HH:mm:ss";

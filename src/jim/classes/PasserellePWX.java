@@ -12,7 +12,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-public class PasserellePWX extends PasserelleFichier {
+public class PasserellePWX extends PasserelleFichierXML {
 
 	// méthode pour mettre à jour un objet Trace (vide) à partir n'un fichier PWX
 	// paramètre nomFichier  : le nom du fichier contenant la trace

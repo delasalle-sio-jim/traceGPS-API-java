@@ -12,7 +12,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-public class PasserelleGPX extends PasserelleFichier {
+public class PasserelleGPX extends PasserelleFichierXML {
 	
 	// méthode pour mettre à jour un objet Trace (vide) à partir n'un fichier GPX
 	// paramètre nomFichier  : le nom du fichier contenant la trace

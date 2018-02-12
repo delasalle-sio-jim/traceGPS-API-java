@@ -6,7 +6,7 @@
 
 package jim.classes;
 
-public abstract class PasserelleFichier extends Passerelle {
+public abstract class PasserelleFichierXML extends PasserelleXML {
 	
 	// méthode abstraite pour mettre à jour un objet Trace (vide) à partir d'un fichier GPS
 	// paramètre nomFichier  : le nom du fichier contenant la trace

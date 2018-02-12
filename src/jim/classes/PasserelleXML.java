@@ -18,7 +18,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
 
-public abstract class Passerelle {
+public abstract class PasserelleXML {
 
     // méthode protégée statique pour obtenir un flux en lecture (java.io.InputStream)
     // à partir de l'adresse d'un fichier ou de l'URL d'un service web
